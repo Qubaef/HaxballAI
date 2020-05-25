@@ -95,7 +95,7 @@ os.environ["CUDA_VISIBLE_DEVICES"] = "0"
 # displayMode = 1 - display game
 # displayMode = 2 - display game; control one player with mouse; LPM displays reward for his current state
 # displayMode = 3 - same as 1, but display plots
-display_mode = 1
+display_mode = 2
 
 # weights folder name
 results_foldername = "results"
@@ -116,7 +116,7 @@ filename_copy = "copy"
 
 # load_model = 0 - initailize new model with random weights
 # load_model = 1 - load model from file
-load_model = 1
+load_model = 0
 
 # save_model = 0 - don't save learned model after every epoch
 # save_model = 1 - save learned model afetr every epoch (will overwrite previously saved model)
@@ -130,10 +130,10 @@ save_charts = 0
 epochs_number = 1000
 
 # Number of games per epoch
-games_per_epoch = 100
+games_per_epoch = 60
 
 # Number of frames per game (frames_per_game / 60 = seconds in display mode)
-frames_per_game = 300
+frames_per_game = 400
 
 # learn batch size
 batch_size = int(100)

@@ -146,13 +146,17 @@ class GameController( object ):
         position_reward_player1 = (d - (self.player1.p - self.ball.p).length()) / d
         position_reward_player2 = (d - (self.player2.p - self.ball.p).length()) / d
 
+        # count reward from ball's velocity vector
+        ball_vec_reward_player1 = self.game.goal_left.get_angle(self, ball_p, ball_v)
+        ball_vec_reward_player2 = self.game.goal_right.get_angle(self, ball_p, ball_v)
+
         # count reward from ball-to-goal distance
         goal_reward_player1 = (d - self.game.team_left.goal.get_dist(self.ball.p)) / d
         goal_reward_player2 = (d - self.game.team_right.goal.get_dist(self.ball.p)) / d
 
         # count sum reward
-        reward_player1 = goal_reward_player1 + position_reward_player1 * 0.2 + ballkicks[0] * 0.1
-        reward_player2 = goal_reward_player2 + position_reward_player2 * 0.2 + ballkicks[1] * 0.1
+        reward_player1 = goal_reward_player1 * 0.2 + position_reward_player1 * 0.2 + ballkicks[0] * 0.1
+        reward_player2 = goal_reward_player2 * 0.2 + position_reward_player2 * 0.2 + ballkicks[1] * 0.1
 
         return [reward_player1, reward_player2]
 
