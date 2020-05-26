@@ -48,8 +48,8 @@ class GameController( object ):
         self.states_translation_array[7] = pygame.math.Vector2(0, 1).normalize()
         self.states_translation_array[8] = pygame.math.Vector2(1, 1).normalize()
 
-        self.possible_inputs = list(itertools.product(range(9), range(7)))
-        self.not_possible_inputs = list(itertools.product([0], range(1,7)))
+        self.possible_inputs = list(itertools.product(range(9), range(4)))
+        self.not_possible_inputs = list(itertools.product([0], range(1,4)))
         self.possible_inputs = [item for item in self.possible_inputs if item not in self.not_possible_inputs]
         
 
@@ -148,8 +148,8 @@ class GameController( object ):
         position_reward_player2 = (d - (self.player2.p - self.ball.p).length()) / d
 
         # count reward from ball's velocity vector
-        goal_left_angle = self.game.goal_left.get_angle(self.ball.p, self.ball.v, pygame.math.Vector2(0,-1))
-        goal_right_angle = self.game.goal_right.get_angle(self.ball.p, self.ball.v, pygame.math.Vector2(0,1))
+        goal_left_angle = self.game.goal_left.get_angle(self.ball.p, self.ball.v)
+        goal_right_angle = self.game.goal_right.get_angle(self.ball.p, self.ball.v)
 
         if goal_left_angle == 1:
             ball_vec_reward_player1 = 1
@@ -160,8 +160,8 @@ class GameController( object ):
             ball_vec_reward_player2 = 1
             print('player2 +1')
         else:
-            ball_vec_reward_player1 = -1
-            ball_vec_reward_player2 = -1
+            ball_vec_reward_player1 = 0
+            ball_vec_reward_player2 = 0
 
         # count reward from ball-to-goal distance
         goal_reward_player1 = (d - self.game.team_left.goal.get_dist(self.ball.p)) / d

@@ -96,54 +96,54 @@ class GameEngine( object ):
             self.screen.blit(status_message, (self.screen_w * 3 / 10, self.screen_h / 20))
 
         # draw pitch border
-        pygame.draw.rect(self.screen, self.border_color, \
-                         ((self.screen_w - self.pitch_w) / 2 - self.border_width, \
-                          (self.screen_h - self.pitch_h) / 2 - self.border_width, \
-                          self.pitch_w + self.border_width * 2 - 1, \
-                          self.pitch_h + self.border_width * 2 - 1), \
+        pygame.draw.rect(self.screen, self.border_color,
+                         ((self.screen_w - self.pitch_w) / 2 - self.border_width,
+                          (self.screen_h - self.pitch_h) / 2 - self.border_width,
+                          self.pitch_w + self.border_width * 2 - 1,
+                          self.pitch_h + self.border_width * 2 - 1),
                          self.border_width)
 
         # draw pitch stripes
         for i in range(0, 10):
             if i % 2:
-                pygame.draw.rect(self.screen, self.pitch_color_1, \
-                                 ((self.screen_w - self.pitch_w) / 2 + i * self.pitch_w / 10, \
-                                  (self.screen_h - self.pitch_h) / 2, self.pitch_w / 10, \
+                pygame.draw.rect(self.screen, self.pitch_color_1,
+                                 ((self.screen_w - self.pitch_w) / 2 + i * self.pitch_w / 10,
+                                  (self.screen_h - self.pitch_h) / 2, self.pitch_w / 10,
                                   self.pitch_h))
             else:
-                pygame.draw.rect(self.screen, self.pitch_color_2, \
-                                 ((self.screen_w - self.pitch_w) / 2 + i * self.pitch_w / 10, \
-                                  (self.screen_h - self.pitch_h) / 2, self.pitch_w / 10, \
+                pygame.draw.rect(self.screen, self.pitch_color_2,
+                                 ((self.screen_w - self.pitch_w) / 2 + i * self.pitch_w / 10,
+                                  (self.screen_h - self.pitch_h) / 2, self.pitch_w / 10,
                                   self.pitch_h))
 
         ### draw pitch lines
 
         # middle line
-        pygame.draw.rect(self.screen, self.border_color, \
-                         ((self.screen_w / 2) - self.border_width + 1, \
-                          (self.screen_h - self.pitch_h) / 2, \
+        pygame.draw.rect(self.screen, self.border_color,
+                         ((self.screen_w / 2) - self.border_width + 1,
+                          (self.screen_h - self.pitch_h) / 2,
                           self.border_width * 2, self.pitch_h))
 
         # circle
-        pygame.gfxdraw.aacircle(self.screen, \
-                                int(self.screen_w / 2), \
-                                int(self.screen_h / 2), \
+        pygame.gfxdraw.aacircle(self.screen,
+                                int(self.screen_w / 2),
+                                int(self.screen_h / 2),
                                 int(self.pitch_w / 8), self.border_color)
 
-        pygame.gfxdraw.aacircle(self.screen, \
-                                int(self.screen_w / 2), \
-                                int(self.screen_h / 2), \
+        pygame.gfxdraw.aacircle(self.screen,
+                                int(self.screen_w / 2),
+                                int(self.screen_h / 2),
                                 int(self.pitch_w / 8 - 1), self.border_color)
 
-        pygame.gfxdraw.aacircle(self.screen, \
-                                int(self.screen_w / 2), \
-                                int(self.screen_h / 2), \
+        pygame.gfxdraw.aacircle(self.screen,
+                                int(self.screen_w / 2),
+                                int(self.screen_h / 2),
                                 int(self.pitch_w / 8 - 2), self.border_color)
 
         # dot
-        pygame.gfxdraw.filled_circle(self.screen, \
-                                     int(self.screen_w / 2), \
-                                     int(self.screen_h / 2), \
+        pygame.gfxdraw.filled_circle(self.screen,
+                                     int(self.screen_w / 2),
+                                     int(self.screen_h / 2),
                                      self.border_width * 3, self.border_color)
 
         # draw goals and borders

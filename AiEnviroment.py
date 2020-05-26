@@ -48,7 +48,7 @@ def play_games(games_number, frames_per_game, display_mode):
             action_player2 = dqn_learn.make_move(np.reshape(state_player2, [1, len(state_player2)]))
     
             # simulate frame
-            reward, done, kick_stats = env.next_frame(action_player1, 0)
+            reward, done, kick_stats = env.next_frame(action_player1, action_player2)
 
             # count average reward
             if(save_charts == 1):
@@ -57,7 +57,7 @@ def play_games(games_number, frames_per_game, display_mode):
 
                 stats.memorize_kicks(kick_stats[0])
                 stats.memorize_kicks(kick_stats[1])
-      
+
             # get players states
             next_state_player1 = env.get_state_1()
             next_state_player2 = env.get_state_2()
@@ -95,7 +95,7 @@ os.environ["CUDA_VISIBLE_DEVICES"] = "0"
 # displayMode = 1 - display game
 # displayMode = 2 - display game; control one player with mouse; LPM displays reward for his current state
 # displayMode = 3 - same as 1, but display plots
-display_mode = 2
+display_mode = 0
 
 # weights folder name
 results_foldername = "results"
@@ -120,20 +120,20 @@ load_model = 0
 
 # save_model = 0 - don't save learned model after every epoch
 # save_model = 1 - save learned model afetr every epoch (will overwrite previously saved model)
-save_model = 0
+save_model = 1
 
 # save_charts = 0 - don't save charts
 # save_charts = 1 - save charts after every epoch
-save_charts = 0
+save_charts = 1
 
 # Number of epochs
 epochs_number = 1000
 
 # Number of games per epoch
-games_per_epoch = 60
+games_per_epoch = 70
 
 # Number of frames per game (frames_per_game / 60 = seconds in display mode)
-frames_per_game = 4000
+frames_per_game = 400
 
 # learn batch size
 batch_size = int(100)
