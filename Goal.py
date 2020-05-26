@@ -44,26 +44,35 @@ class Goal( object ):
         elif position_vector.y < self.y_down:
             return (position_vector - self.post_down.p).length()
         else:
-            return (position_vector - pygame.math.Vector2(self.x,self.y_up + int(width/2))).length()
+            return (position_vector - pygame.math.Vector2(self.x,self.y_up + int(self.width / 2))).length()
 
 
-    def get_angle(self, ball_p, ball_v):
+    def get_angle(self, ball_p, ball_v, normal):
         # if ball is going towards this goal (with v > 0.5), return 1
         # if ball is going somewhere else, return number based on angle (min is -1)
 
         vec_post_1 = self.post_up.p - ball_p
         vec_post_2 = self.post_down.p - ball_p
 
-        default = pygame.math.Vector2(1,0)
+        if ball_v.length() < 0.5:
+            return -1
 
-        a1 = ball_v.angle_to(default)
-        a2 = ball_v.angle_to(default)
-        b = ball_v.angle_to(ball_v)
+        a1 = vec_post_1.angle_to(normal)
+        if a1 < 0:
+            a1 += 360
 
-        if b > a1 and b < a2:
+        a2 = vec_post_2.angle_to(normal)
+        if a2 < 0:
+            a2 += 360
+
+        b = ball_v.angle_to(pygame.math.Vector2(0,1))
+        if b < 0:
+            b += 360
+
+        if a1 < b < a2:
             return 1
         else:
-            return 0
+            return (abs(a1 - b) + abs(a2 - b)) / 360
 
 
 

@@ -138,6 +138,7 @@ class GameController( object ):
                          (self.ball.v.x - self.ball.v_max) / self.ball.v_max, (self.ball.v.y - self.ball.v_max) / self.ball.v_max,
                          self.player2_target_goal / self.game.screen_w])
 
+
     def get_reward(self, ballkicks):
         # get diagonal length
         d = math.sqrt(self.game.pitch_w ** 2 + self.game.pitch_h ** 2)
@@ -147,16 +148,28 @@ class GameController( object ):
         position_reward_player2 = (d - (self.player2.p - self.ball.p).length()) / d
 
         # count reward from ball's velocity vector
-        ball_vec_reward_player1 = self.game.goal_left.get_angle(self, ball_p, ball_v)
-        ball_vec_reward_player2 = self.game.goal_right.get_angle(self, ball_p, ball_v)
+        goal_left_angle = self.game.goal_left.get_angle(self.ball.p, self.ball.v, pygame.math.Vector2(0,-1))
+        goal_right_angle = self.game.goal_right.get_angle(self.ball.p, self.ball.v, pygame.math.Vector2(0,1))
+
+        if goal_left_angle == 1:
+            ball_vec_reward_player1 = 1
+            ball_vec_reward_player2 = -1
+            print('player1 +1')
+        elif goal_right_angle == 1:
+            ball_vec_reward_player1 = -1
+            ball_vec_reward_player2 = 1
+            print('player2 +1')
+        else:
+            ball_vec_reward_player1 = -1
+            ball_vec_reward_player2 = -1
 
         # count reward from ball-to-goal distance
         goal_reward_player1 = (d - self.game.team_left.goal.get_dist(self.ball.p)) / d
         goal_reward_player2 = (d - self.game.team_right.goal.get_dist(self.ball.p)) / d
 
         # count sum reward
-        reward_player1 = goal_reward_player1 * 0.2 + position_reward_player1 * 0.2 + ballkicks[0] * 0.1
-        reward_player2 = goal_reward_player2 * 0.2 + position_reward_player2 * 0.2 + ballkicks[1] * 0.1
+        reward_player1 = goal_reward_player1 * 0.3 + ball_vec_reward_player1 * 0.3 + position_reward_player1 * 0.2 + ballkicks[0] * 0.1
+        reward_player2 = goal_reward_player2 * 0.3 + ball_vec_reward_player2 * 0.3 + position_reward_player2 * 0.2 + ballkicks[1] * 0.1
 
         return [reward_player1, reward_player2]
 

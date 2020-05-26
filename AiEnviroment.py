@@ -48,7 +48,7 @@ def play_games(games_number, frames_per_game, display_mode):
             action_player2 = dqn_learn.make_move(np.reshape(state_player2, [1, len(state_player2)]))
     
             # simulate frame
-            reward, done, kick_stats = env.next_frame(action_player1, action_player2)
+            reward, done, kick_stats = env.next_frame(action_player1, 0)
 
             # count average reward
             if(save_charts == 1):
@@ -133,7 +133,7 @@ epochs_number = 1000
 games_per_epoch = 60
 
 # Number of frames per game (frames_per_game / 60 = seconds in display mode)
-frames_per_game = 400
+frames_per_game = 4000
 
 # learn batch size
 batch_size = int(100)
